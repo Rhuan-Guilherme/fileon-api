@@ -1,0 +1,9 @@
+services:
+  api-fileon-pg:
+    image: bitnami/postgresql
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRESQL_USERNAME=fileon
+      - POSTGRESQL_PASSWORD=fileon
+      - POSTGRESQL_DATABASE=fileon_db
