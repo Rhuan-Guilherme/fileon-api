@@ -1,15 +1,11 @@
 import { ResourceNotFoundError } from '../../../exceptions/resource-not-found-error';
 import type { UserRepositoryInterface } from '../../repositories/user-repository-interface';
 
-interface FindUserRequest {
-  userId: string;
-}
-
-export class FindUserUseCase {
+export class FindUserByEmailUseCase {
   constructor(private userRepository: UserRepositoryInterface) {}
 
-  async execute({ userId }: FindUserRequest) {
-    const user = await this.userRepository.findUserById(userId);
+  async execute({ email }: { email: string }) {
+    const user = await this.userRepository.findUserByEmail(email);
 
     if (!user) {
       throw new ResourceNotFoundError('User');

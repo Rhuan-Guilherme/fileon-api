@@ -3,7 +3,11 @@ import type { User } from '../../../generated/prisma/client';
 import type { UserRepositoryInterface } from '../user-repository-interface';
 
 export class InMemoryUserRepository implements UserRepositoryInterface {
-  public users: User[] = [];
+  private users: User[] = [];
+
+  getUsers() {
+    return this.users;
+  }
 
   async findUserById(userId: string): Promise<User | null> {
     const user = this.users.find((user) => user.id === userId) || null;
@@ -15,9 +19,19 @@ export class InMemoryUserRepository implements UserRepositoryInterface {
     return Promise.resolve(user);
   }
 
-  async createUser(data: Partial<User>): Promise<User> {
+  async findUserByEmail(email: string): Promise<User | null> {
+    const user = this.users.find((user) => user.email === email) || null;
+
+    if (!user) {
+      return Promise.resolve(null);
+    }
+
+    return Promise.resolve(user);
+  }
+
+  async createUser(data: Partial<User>): Promise<null> {
     const newUser: User = {
-      id: randomUUID(),
+      id: data.id || randomUUID(),
       password: data.password || '',
       email: data.email || '',
       name: data.name || '',
@@ -26,6 +40,6 @@ export class InMemoryUserRepository implements UserRepositoryInterface {
     };
 
     this.users.push(newUser);
-    return Promise.resolve(newUser);
+    return Promise.resolve(null);
   }
 }
