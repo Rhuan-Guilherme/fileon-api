@@ -3,11 +3,7 @@ import type { User } from '../../../generated/prisma/client';
 import type { UserRepositoryInterface } from '../user-repository-interface';
 
 export class InMemoryUserRepository implements UserRepositoryInterface {
-  private users: User[] = [];
-
-  getUsers() {
-    return this.users;
-  }
+  public users: User[] = [];
 
   async findUserById(userId: string): Promise<User | null> {
     const user = this.users.find((user) => user.id === userId) || null;

@@ -1,10 +1,9 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import type { UserRepositoryInterface } from '../../repositories/user-repository-interface';
 import { FindUserByIdUseCase } from '../users/find-user-by-id';
 import { InMemoryUserRepository } from '../../repositories/in-memory/user-memory-repository';
 import { ResourceNotFoundError } from '../../../exceptions/resource-not-found-error';
 
-let userRepository: UserRepositoryInterface;
+let userRepository: InMemoryUserRepository;
 let useCase: FindUserByIdUseCase;
 
 describe('Caso de uso para busca de um usuário ID', () => {
@@ -14,16 +13,20 @@ describe('Caso de uso para busca de um usuário ID', () => {
   });
 
   it('deve buscar um usuário pelo ID', async () => {
-    await userRepository.createUser({
-      id: 'user-1',
-      email: 'teste@gmail.com',
+    const newUser = {
+      id: 'user-01',
       name: 'Teste',
+      email: 'teste@teste.com',
       password: '123456',
-    });
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
 
-    const user = await useCase.execute({ userId: 'user-1' });
+    userRepository.users.push(newUser);
 
-    expect(user.email).toEqual('teste@gmail.com');
+    const user = await useCase.execute({ userId: 'user-01' });
+
+    expect(user.email).toEqual('teste@teste.com');
     expect(user.name).toEqual('Teste');
   });
 
