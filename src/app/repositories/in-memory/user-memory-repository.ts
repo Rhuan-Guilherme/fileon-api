@@ -25,7 +25,7 @@ export class InMemoryUserRepository implements UserRepositoryInterface {
     return Promise.resolve(user);
   }
 
-  async createUser(data: Partial<User>): Promise<null> {
+  async createUser(data: Partial<User>): Promise<User> {
     const newUser: User = {
       id: data.id || randomUUID(),
       password: data.password || '',
@@ -36,6 +36,6 @@ export class InMemoryUserRepository implements UserRepositoryInterface {
     };
 
     this.users.push(newUser);
-    return Promise.resolve(null);
+    return newUser;
   }
 }
