@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { FindUserByEmailUseCase } from '../users/find-user-by-email';
+import { FindUserByEmailUseCase } from '../_users/find-user-by-email';
 import { InMemoryUserRepository } from '../../repositories/in-memory/user-memory-repository';
 import { ResourceNotFoundError } from '../../../exceptions/resource-not-found-error';
 

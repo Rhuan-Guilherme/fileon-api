@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { InMemoryUserRepository } from '../../repositories/in-memory/user-memory-repository';
-import { CreateUserUseCase } from '../users/create-user';
+import { CreateUserUseCase } from '../_users/create-user';
 import { UserAlreadyExistsError } from '../../../exceptions/user-already-exists-error';
 import type { User } from '../../../generated/prisma/client';
 import { compare } from 'bcryptjs';
