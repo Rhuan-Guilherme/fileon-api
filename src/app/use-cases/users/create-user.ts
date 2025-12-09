@@ -1,3 +1,4 @@
+import { hash } from 'bcryptjs';
 import { UserAlreadyExistsError } from '../../../exceptions/user-already-exists-error';
 import type { UserRepositoryInterface } from '../../repositories/user-repository-interface';
 
@@ -17,10 +18,12 @@ export class CreateUserUseCase {
       throw new UserAlreadyExistsError();
     }
 
+    const passwordHash = await hash(password, 8);
+
     await this.userRepository.createUser({
       email,
       name,
-      password,
+      password: passwordHash,
     });
   }
 }

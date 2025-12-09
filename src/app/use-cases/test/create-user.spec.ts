@@ -2,6 +2,8 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { InMemoryUserRepository } from '../../repositories/in-memory/user-memory-repository';
 import { CreateUserUseCase } from '../users/create-user';
 import { UserAlreadyExistsError } from '../../../exceptions/user-already-exists-error';
+import type { User } from '../../../generated/prisma/client';
+import { compare } from 'bcryptjs';
 
 let userRepository: InMemoryUserRepository;
 let useCase: CreateUserUseCase;
@@ -46,5 +48,19 @@ describe('Caso de uso para criação de um usuário', () => {
           password: '123456',
         })
     ).rejects.toBeInstanceOf(UserAlreadyExistsError);
+  });
+
+  it('deve hash a senha do usuário ao criar um novo usuário', async () => {
+    await useCase.execute({
+      email: 'teste@teste.com',
+      name: 'Teste',
+      password: '123456',
+    });
+
+    const createdUser = userRepository.users[0] as User;
+
+    const isPasswordCorrect = await compare('123456', createdUser.password);
+
+    expect(isPasswordCorrect).toBe(true);
   });
 });
