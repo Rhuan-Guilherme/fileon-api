@@ -38,4 +38,13 @@ export class InMemoryUserRepository implements UserRepositoryInterface {
     this.users.push(newUser);
     return newUser;
   }
+
+  async updateUser(userId: string, data: Partial<User>): Promise<User> {
+    const userIndex = this.users.findIndex((user) => user.id === userId);
+
+    const updatedUser: User = { ...this.users[userIndex], ...data } as User;
+    this.users[userIndex] = updatedUser;
+
+    return updatedUser;
+  }
 }

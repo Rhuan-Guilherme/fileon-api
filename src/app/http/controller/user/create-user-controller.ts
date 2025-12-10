@@ -1,6 +1,6 @@
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import z from 'zod';
-import { CreateUserFactory } from '../../../use-cases/factories/users/create-user';
+import { makeCreateUserFactory } from '../../../use-cases/factories/users/create-user';
 import { UserAlreadyExistsError } from '../../../../exceptions/user-already-exists-error';
 
 export async function createUserController(
@@ -16,7 +16,7 @@ export async function createUserController(
   const { name, email, password } = userSchema.parse(request.body);
 
   try {
-    const createUser = CreateUserFactory();
+    const createUser = makeCreateUserFactory();
     await createUser.execute({ name, email, password });
     reply.status(201).send();
   } catch (error) {
