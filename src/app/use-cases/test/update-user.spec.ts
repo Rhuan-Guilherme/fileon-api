@@ -28,14 +28,13 @@ describe('Deve ser possível atualizar um usuário', () => {
       id: newUser.id,
       name: 'Jane Doe',
       email: 'jane@example.com',
-      password: '654321',
     });
 
     expect(updatedUser).toEqual({
       id: newUser.id,
       name: 'Jane Doe',
       email: 'jane@example.com',
-      password: '654321',
+      password: '123456',
       createdAt: newUser.createdAt,
       updatedAt: newUser.updatedAt,
     });
@@ -74,7 +73,6 @@ describe('Deve ser possível atualizar um usuário', () => {
         id: 'non-existing-id',
         name: 'Jane Doe',
         email: 'jane@example.com',
-        password: '654321',
       })
     ).rejects.toBeInstanceOf(ResourceNotFoundError);
   });
