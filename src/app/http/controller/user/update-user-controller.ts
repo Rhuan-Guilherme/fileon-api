@@ -1,7 +1,7 @@
+import { makeUpdateUserFactory } from '@/app/use-cases/factories/users/update-user-factory';
+import { ResourceNotFoundError } from '@/exceptions/resource-not-found-error';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import z from 'zod';
-import { makeUpdateUserFactory } from '../../../use-cases/factories/users/update-user-factory';
-import { ResourceNotFoundError } from '../../../../exceptions/resource-not-found-error';
 
 export async function updateUserController(
   request: FastifyRequest,

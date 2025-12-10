@@ -1,5 +1,5 @@
-import { ResourceNotFoundError } from '../../../exceptions/resource-not-found-error';
-import type { UserRepositoryInterface } from '../../repositories/user-repository-interface';
+import type { UserRepositoryInterface } from '@/app/repositories/user-repository-interface';
+import { ResourceNotFoundError } from '@/exceptions/resource-not-found-error';
 
 interface UpdateUserRequest {
   id: string;

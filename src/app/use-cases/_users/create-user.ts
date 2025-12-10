@@ -1,6 +1,6 @@
+import type { UserRepositoryInterface } from '@/app/repositories/user-repository-interface';
+import { UserAlreadyExistsError } from '@/exceptions/user-already-exists-error';
 import { hash } from 'bcryptjs';
-import { UserAlreadyExistsError } from '../../../exceptions/user-already-exists-error';
-import type { UserRepositoryInterface } from '../../repositories/user-repository-interface';
 
 interface CreateUserRequest {
   name: string;

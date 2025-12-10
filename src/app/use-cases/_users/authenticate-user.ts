@@ -1,6 +1,6 @@
+import type { UserRepositoryInterface } from '@/app/repositories/user-repository-interface';
+import { InvalidCredentialsError } from '@/exceptions/invalid-credentials-error';
 import { compare } from 'bcryptjs';
-import type { UserRepositoryInterface } from '../../repositories/user-repository-interface';
-import { InvalidCredentialsError } from '../../../exceptions/invalid-credentials-error';
 
 interface AuthenticateUserRequest {
   email: string;
