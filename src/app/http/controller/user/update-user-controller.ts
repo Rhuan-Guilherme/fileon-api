@@ -8,16 +8,16 @@ export async function updateUserController(
   reply: FastifyReply
 ) {
   const userSchema = z.object({
-    id: z.uuid(),
     name: z.string().optional(),
     email: z.email().optional(),
   });
 
   const data = userSchema.parse(request.body);
 
+  const { sub } = request.user as { sub: string };
   try {
     const updateUser = makeUpdateUserFactory();
-    await updateUser.execute({ ...data });
+    await updateUser.execute({ id: sub, ...data });
     reply.status(200).send();
   } catch (error) {
     if (error instanceof ResourceNotFoundError) {
